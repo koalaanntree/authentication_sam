@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @Author: huangxin
  * @Date: Created in 下午3:33 2018/2/26
- * @Description:
+ * @Description: 没法拿到参数具体的值
  */
 @Component
 public class TimeInterceptor implements HandlerInterceptor {
