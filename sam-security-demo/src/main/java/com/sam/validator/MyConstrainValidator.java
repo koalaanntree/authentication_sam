@@ -31,6 +31,6 @@ public class MyConstrainValidator implements ConstraintValidator<MyConstraint,Ob
 
         System.out.println(value);
 
-        return false;
+        return true;
     }
 }

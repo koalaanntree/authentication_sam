@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.sam.dto.User;
 import com.sam.dto.UserQueryCondition;
 import com.sam.exception.UserNotExistException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -61,6 +63,7 @@ public class UserController {
 
     @GetMapping
     @JsonView(User.UserSimpleView.class)
+    @ApiOperation(value = "用户查询服务")
     public List<User> query(
 //            @RequestParam(name = "username",required = false,defaultValue = "sam111") String nickname
             UserQueryCondition userQueryCondition,
@@ -82,7 +85,7 @@ public class UserController {
 
     @GetMapping("/{id:\\d+}")//加正则校验
     @JsonView(User.UserDetailView.class)
-    public User getInfo(@PathVariable(name = "id") String idxxx) {
+    public User getInfo(@ApiParam(value = "用户id") @PathVariable(name = "id") String idxxx) {
 
 //        throw new UserNotExistException(idxxx);
 

@@ -1,5 +1,7 @@
 package com.sam.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * @Author: huangxin
  * @Date: Created in 上午11:27 2018/2/26
@@ -7,7 +9,9 @@ package com.sam.dto;
  */
 public class UserQueryCondition {
     private String username;
+    @ApiModelProperty(value = "用户年龄起始值")
     private int age;
+    @ApiModelProperty(value = "用户年龄终止值")
     private int ageTo;
     private String xxx;
 
