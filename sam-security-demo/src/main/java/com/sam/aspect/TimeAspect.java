@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
  * @Date: Created in 下午4:22 2018/2/26
  * @Description:
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class TimeAspect {
 
     @Around("execution(* com.sam.controller.UserController.*(..))")
