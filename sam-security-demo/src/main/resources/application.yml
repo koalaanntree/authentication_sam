@@ -14,4 +14,14 @@ server:
 #spring session
 security:
   basic:
-    enabled: false
+    enabled: true
+
+#sam:
+#  security:
+#    browser:
+#      loginPage: /demo-signIn.html
+
+sam:
+  security:
+      browser:
+        loginType: REDIRECT
