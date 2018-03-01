@@ -1,6 +1,6 @@
 package com.sam.controller;
 
-import com.sam.SecurityProperties;
+import com.sam.validate.properties.SecurityProperties;
 import com.sam.support.SimpleResponse;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;

@@ -1,5 +1,6 @@
 package com.sam;
 
+import com.sam.validate.properties.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 

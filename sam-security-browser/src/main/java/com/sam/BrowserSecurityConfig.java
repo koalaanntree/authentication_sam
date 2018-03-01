@@ -1,6 +1,7 @@
 package com.sam;
 
 import com.sam.validate.code.ValidateCodeFilter;
+import com.sam.validate.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

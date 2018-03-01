@@ -1,13 +1,12 @@
 package com.sam.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sam.LoginType;
-import com.sam.SecurityProperties;
+import com.sam.validate.properties.LoginType;
+import com.sam.validate.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
