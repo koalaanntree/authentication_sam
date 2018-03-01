@@ -1,5 +1,7 @@
 package com.sam;
 
+import com.sam.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.sam.validate.code.SmsCodeFilter;
 import com.sam.validate.code.ValidateCodeFilter;
 import com.sam.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
     /**
      * 设置密码加密解密方式
      *
@@ -77,9 +82,14 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         codeFilter.setAuthenticationFailureHandler(samAuthenticationFailureHandler);
         codeFilter.setSecurityProperties(securityProperties);
         codeFilter.afterPropertiesSet();
+
+        SmsCodeFilter smsCodeFilter = new SmsCodeFilter();
+        smsCodeFilter.setAuthenticationFailureHandler(samAuthenticationFailureHandler);
+        smsCodeFilter.setSecurityProperties(securityProperties);
+        smsCodeFilter.afterPropertiesSet();
 //表单登录
         //每个and后是一句话===>配置一类东西
-        http
+        http    .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(codeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                 //自定义登录页面
@@ -103,6 +113,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 //暂时关闭csrf跨站请求伪造
                 .and().csrf().disable()
+        .apply(smsCodeAuthenticationSecurityConfig)
         ;
 
 
