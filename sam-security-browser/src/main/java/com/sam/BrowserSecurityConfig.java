@@ -7,11 +7,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 /**
  * @Author: huangxin
@@ -30,6 +35,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationFailureHandler samAuthenticationFailureHandler;
 
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     /**
      * 设置密码加密解密方式
      *
@@ -39,6 +50,19 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    /**
+     * 配置token repository读写数据库
+     */
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+//        tokenRepository.setCreateTableOnStartup(true);
+        return tokenRepository;
+    }
+
 
     /**
      * http请求配置
@@ -64,18 +88,22 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/authentication/form")
                 .successHandler(samAuthenticationSuccessHandler)
                 .failureHandler(samAuthenticationFailureHandler)
+                //记住我的配置
+                .and().rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSecodes())
+                .userDetailsService(userDetailsService)
 //        http.httpBasic()
                 .and()
                 .authorizeRequests()
                 //配置哪些页面可以访问不需要身份认证
-                .antMatchers("/authentication/require",securityProperties.getBrowser().getLoginPage()
-                ,"/code/image").permitAll()
+                .antMatchers("/authentication/require", securityProperties.getBrowser().getLoginPage()
+                        , "/code/image").permitAll()
                 .anyRequest()
                 .authenticated()
                 //暂时关闭csrf跨站请求伪造
                 .and().csrf().disable()
         ;
-
 
 
     }

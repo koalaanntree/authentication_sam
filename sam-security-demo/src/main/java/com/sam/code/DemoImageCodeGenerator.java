@@ -2,7 +2,6 @@ package com.sam.code;
 
 import com.sam.validate.code.ImageCode;
 import com.sam.validate.code.ValidateCodeGenerator;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
@@ -10,7 +9,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @Date: Created in 上午10:24 2018/3/1
  * @Description: 以增量的方式适应变化
  */
-@Component("imageCodeGenerator")
+//@Component("imageCodeGenerator")
 public class DemoImageCodeGenerator implements ValidateCodeGenerator {
 
     @Override

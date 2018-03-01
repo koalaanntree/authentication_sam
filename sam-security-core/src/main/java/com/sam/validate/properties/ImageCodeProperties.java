@@ -12,7 +12,7 @@ public class ImageCodeProperties {
     private int length = 4;
     private int expireIn = 60;
 
-    private String url;
+    private String url = "";
 
     public int getWidth() {
         return width;
