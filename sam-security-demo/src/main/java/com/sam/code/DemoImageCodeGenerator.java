@@ -1,6 +1,6 @@
 package com.sam.code;
 
-import com.sam.validate.code.ImageCode;
+import com.sam.validate.code.image.ImageCode;
 import com.sam.validate.code.ValidateCodeGenerator;
 import org.springframework.web.context.request.ServletWebRequest;
 

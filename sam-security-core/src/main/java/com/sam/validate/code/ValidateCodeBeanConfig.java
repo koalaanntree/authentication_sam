@@ -1,6 +1,7 @@
 package com.sam.validate.code;
 
 import com.sam.properties.SecurityProperties;
+import com.sam.validate.code.image.ImageCodeGenerator;
 import com.sam.validate.code.sms.DefaultSmsCodeSender;
 import com.sam.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;

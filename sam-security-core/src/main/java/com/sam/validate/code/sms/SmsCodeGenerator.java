@@ -1,6 +1,8 @@
-package com.sam.validate.code;
+package com.sam.validate.code.sms;
 
 import com.sam.properties.SecurityProperties;
+import com.sam.validate.code.ValidateCode;
+import com.sam.validate.code.ValidateCodeGenerator;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,8 +20,13 @@ import java.util.Random;
  */
 @Component("smsCodeGenerator")
 public class SmsCodeGenerator implements ValidateCodeGenerator {
+    /**
+     * 系统配置
+     */
     @Autowired
     private SecurityProperties securityProperties;
+
+
     @Override
     public ValidateCode generate(ServletWebRequest request) {
 
