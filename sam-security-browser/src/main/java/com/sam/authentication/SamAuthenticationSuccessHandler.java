@@ -1,7 +1,7 @@
 package com.sam.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sam.properties.LoginType;
+import com.sam.properties.LoginResponseType;
 import com.sam.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,17 +31,27 @@ public class SamAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
     @Autowired
     private SecurityProperties securityProperties;
 
+    /**
+     * (non-Javadoc)
+     *
+     * @see org.springframework.security.web.Authentication.
+     * AuthenticationSuccessHandler#onAuthenticationSuccess(javax.servlet.http.
+     * HttpServletRequest, javax.servlet.http.HttpServletResponse,
+     * org.springframework.security.core.Authentication)
+     */
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        logger.info("认证成功");
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                        Authentication authentication) throws IOException, ServletException {
 
-        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
+        logger.info("登录成功");
+
+        if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write(objectMapper.writeValueAsString(authentication));
         } else {
-            super.onAuthenticationSuccess(request,response,authentication);
+            super.onAuthenticationSuccess(request, response, authentication);
         }
 
-
     }
+
 }

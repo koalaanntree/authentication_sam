@@ -7,33 +7,34 @@ package com.sam.properties;
  */
 public class BrowserProperties {
 
-    private String loginPage = "/sam-signIn.html";
+    private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
 
-    private LoginType loginType = LoginType.JSON;
+    private LoginResponseType loginType = LoginResponseType.JSON;
 
-    private int rememberMeSecodes = 3600;
+    private int rememberMeSeconds = 3600;
 
     public String getLoginPage() {
         return loginPage;
-    }
-
-    public void setLoginType(LoginType loginType) {
-        this.loginType = loginType;
     }
 
     public void setLoginPage(String loginPage) {
         this.loginPage = loginPage;
     }
 
-    public LoginType getLoginType() {
+    public LoginResponseType getLoginType() {
         return loginType;
     }
 
-    public int getRememberMeSecodes() {
-        return rememberMeSecodes;
+    public void setLoginType(LoginResponseType loginType) {
+        this.loginType = loginType;
     }
 
-    public void setRememberMeSecodes(int rememberMeSecodes) {
-        this.rememberMeSecodes = rememberMeSecodes;
+    public int getRememberMeSeconds() {
+        return rememberMeSeconds;
     }
+
+    public void setRememberMeSeconds(int rememberMeSeconds) {
+        this.rememberMeSeconds = rememberMeSeconds;
+    }
+
 }

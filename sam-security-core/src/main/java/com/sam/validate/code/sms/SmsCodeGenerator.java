@@ -18,23 +18,24 @@ import java.util.Random;
  * @Date: Created in 上午10:13 2018/3/1
  * @Description:
  */
-@Component("smsCodeGenerator")
+@Component("smsValidateCodeGenerator")
 public class SmsCodeGenerator implements ValidateCodeGenerator {
-    /**
-     * 系统配置
-     */
+
     @Autowired
     private SecurityProperties securityProperties;
 
-
+    /**
+     * (non-Javadoc)
+     *
+     * @see
+     * com.sam.validate.code.ValidateCodeGenerator#generate(org.
+     * springframework.web.context.request.ServletWebRequest)
+     */
     @Override
     public ValidateCode generate(ServletWebRequest request) {
-
         String code = RandomStringUtils.randomNumeric(securityProperties.getCode().getSms().getLength());
-
         return new ValidateCode(code, securityProperties.getCode().getSms().getExpireIn());
     }
-
 
     public SecurityProperties getSecurityProperties() {
         return securityProperties;
@@ -43,4 +44,7 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
     public void setSecurityProperties(SecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
+
+
+
 }

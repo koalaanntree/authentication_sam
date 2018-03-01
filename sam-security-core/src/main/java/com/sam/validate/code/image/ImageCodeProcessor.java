@@ -9,9 +9,9 @@ import javax.imageio.ImageIO;
 /**
  * @Author: huangxin
  * @Date: Created in 下午1:31 2018/3/1
- * @Description:
+ * @Description: 图片验证码处理器
  */
-@Component("imageCodeProcessor")
+@Component("imageValidateCodeProcessor")
 public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode> {
 
     /**

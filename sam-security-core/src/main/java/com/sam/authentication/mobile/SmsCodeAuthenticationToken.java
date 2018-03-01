@@ -45,7 +45,7 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
      * @param authorities
      */
     public SmsCodeAuthenticationToken(Object principal,
-                                               Collection<? extends GrantedAuthority> authorities) {
+                                      Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
         super.setAuthenticated(true); // must use super, as we override

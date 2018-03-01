@@ -1,7 +1,7 @@
 package com.sam.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sam.properties.LoginType;
+import com.sam.properties.LoginResponseType;
 import com.sam.properties.SecurityProperties;
 import com.sam.support.SimpleResponse;
 import org.slf4j.Logger;
@@ -22,8 +22,9 @@ import java.io.IOException;
  * @Date: Created in 下午2:10 2018/2/28
  * @Description:
  */
-@Component("samAuthenticationFailureHandler")
-public class SamAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+@Component("samAuthenctiationFailureHandler")
+public class SamAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -32,17 +33,25 @@ public class SamAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
     @Autowired
     private SecurityProperties securityProperties;
 
-    @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        logger.info("认证失败");
 
-        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
+    /** (non-Javadoc)
+     * @see org.springframework.security.web.authentication.AuthenticationFailureHandler#onAuthenticationFailure(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.security.core.AuthenticationException)
+     */
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                        AuthenticationException exception) throws IOException, ServletException {
+
+        logger.info("登录失败");
+
+        if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
-        } else {
-            super.onAuthenticationFailure(request,response,exception);
+        }else{
+            super.onAuthenticationFailure(request, response, exception);
         }
 
+
     }
+
 }

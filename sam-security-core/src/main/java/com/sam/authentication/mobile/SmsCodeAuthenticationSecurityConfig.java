@@ -20,21 +20,21 @@ import org.springframework.stereotype.Component;
 public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired
-    private AuthenticationFailureHandler samAuthenticationFailureHandler;
+    private AuthenticationSuccessHandler imoocAuthenticationSuccessHandler;
 
     @Autowired
-    private AuthenticationSuccessHandler samAuthenticationSuccessHandler;
+    private AuthenticationFailureHandler imoocAuthenticationFailureHandler;
 
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
         SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter();
         smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-
-        smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(samAuthenticationSuccessHandler);
-        smsCodeAuthenticationFilter.setAuthenticationFailureHandler(samAuthenticationFailureHandler);
+        smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(imoocAuthenticationSuccessHandler);
+        smsCodeAuthenticationFilter.setAuthenticationFailureHandler(imoocAuthenticationFailureHandler);
 
         SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider();
         smsCodeAuthenticationProvider.setUserDetailsService(userDetailsService);
@@ -43,4 +43,5 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
                 .addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
+
 }
