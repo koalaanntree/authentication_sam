@@ -1,8 +1,8 @@
 package com.sam.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sam.validate.properties.LoginType;
-import com.sam.validate.properties.SecurityProperties;
+import com.sam.properties.LoginType;
+import com.sam.properties.SecurityProperties;
 import com.sam.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.sam.validate.properties;
+package com.sam.properties;
 
 /**
  * @Author: huangxin

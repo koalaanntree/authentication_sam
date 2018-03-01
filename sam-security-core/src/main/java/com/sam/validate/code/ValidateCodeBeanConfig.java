@@ -1,6 +1,8 @@
 package com.sam.validate.code;
 
-import com.sam.validate.properties.SecurityProperties;
+import com.sam.properties.SecurityProperties;
+import com.sam.validate.code.sms.DefaultSmsCodeSender;
+import com.sam.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +25,12 @@ public class ValidateCodeBeanConfig {
         ImageCodeGenerator codeGenerator = new ImageCodeGenerator();
         codeGenerator.setSecurityProperties(securityProperties);
         return codeGenerator;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(SmsCodeSender.class)//初始化的时候会先找是否有这个bean。
+    public SmsCodeSender SmsCodeSender() {
+        return new DefaultSmsCodeSender();
     }
 
 }

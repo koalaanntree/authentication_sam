@@ -1,4 +1,4 @@
-package com.sam.validate.properties;
+package com.sam.properties;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -29,4 +29,5 @@ public class SecurityProperties {
     public void setBrowser(BrowserProperties browser) {
         this.browser = browser;
     }
+
 }

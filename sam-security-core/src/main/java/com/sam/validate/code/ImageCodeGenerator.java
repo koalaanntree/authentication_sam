@@ -1,6 +1,6 @@
 package com.sam.validate.code;
 
-import com.sam.validate.properties.SecurityProperties;
+import com.sam.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;

@@ -1,6 +1,6 @@
 package com.sam.validate.code;
 
-import com.sam.validate.properties.SecurityProperties;
+import com.sam.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

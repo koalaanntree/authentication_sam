@@ -1,7 +1,7 @@
 package com.sam;
 
 import com.sam.validate.code.ValidateCodeFilter;
-import com.sam.validate.properties.SecurityProperties;
+import com.sam.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -98,7 +98,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //配置哪些页面可以访问不需要身份认证
                 .antMatchers("/authentication/require", securityProperties.getBrowser().getLoginPage()
-                        , "/code/image").permitAll()
+                        , "/code/*").permitAll()
                 .anyRequest()
                 .authenticated()
                 //暂时关闭csrf跨站请求伪造

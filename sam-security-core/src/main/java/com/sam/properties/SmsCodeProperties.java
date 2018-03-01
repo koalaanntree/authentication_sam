@@ -1,34 +1,17 @@
-package com.sam.validate.properties;
+package com.sam.properties;
 
 /**
  * @Author: huangxin
  * @Date: Created in 上午9:49 2018/3/1
  * @Description:
  */
-public class ImageCodeProperties {
+public class SmsCodeProperties {
 
-    private int width = 67;
-    private int height = 23;
-    private int length = 4;
+    private int length = 6;
     private int expireIn = 60;
 
     private String url = "";
 
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 
     public int getLength() {
         return length;
