@@ -21,7 +21,7 @@ security:
 #    browser:
 #      loginPage: /demo-signIn.html
 
-sam:
-  security:
-      browser:
-        loginType: REDIRECT
+#sam:
+#  security:
+#      browser:
+#        loginType: REDIRECT
