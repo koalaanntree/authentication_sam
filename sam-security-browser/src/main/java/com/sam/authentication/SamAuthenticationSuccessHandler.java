@@ -33,7 +33,7 @@ public class SamAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        logger.info("登录成功");
+        logger.info("认证成功");
 
         if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setContentType("application/json;charset=UTF-8");

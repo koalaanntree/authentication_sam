@@ -51,6 +51,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
         ValidateCodeFilter codeFilter = new ValidateCodeFilter();
         codeFilter.setAuthenticationFailureHandler(samAuthenticationFailureHandler);
+        codeFilter.setSecurityProperties(securityProperties);
+        codeFilter.afterPropertiesSet();
 //表单登录
         //每个and后是一句话===>配置一类东西
         http
