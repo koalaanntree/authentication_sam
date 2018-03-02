@@ -8,9 +8,17 @@ spring:
 #spring session
   session:
     store-type: none
+#    spring redis
+  redis:
+    host: 10.42.240.81
+    port: 6379
+    pool:
+      max-active: 8
+      max-wait: 5000
+      max-idle: 8
 #port
 server:
-  port: 8060
+  port: 9090
 #spring session
 security:
   basic:
@@ -34,3 +42,12 @@ security:
 #        width: 100
 ##        需要验证的接口
 #        url: /user/*
+
+sam:
+  security:
+    social:
+      filterProcessesUrl: /qqLogin
+      qq:
+        app-id: 100550231
+        app-secret: 69b6ab57b22f3c2fe6a6149274e3295e
+        providerId: callback.do
