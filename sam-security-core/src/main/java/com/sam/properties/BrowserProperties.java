@@ -13,6 +13,8 @@ public class BrowserProperties {
 
     private int rememberMeSeconds = 3600;
 
+    private String signUpUrl = "/sam-signUp.html";
+
     public String getLoginPage() {
         return loginPage;
     }
@@ -37,4 +39,11 @@ public class BrowserProperties {
         this.rememberMeSeconds = rememberMeSeconds;
     }
 
+    public String getSignUpUrl() {
+        return signUpUrl;
+    }
+
+    public void setSignUpUrl(String signUpUrl) {
+        this.signUpUrl = signUpUrl;
+    }
 }

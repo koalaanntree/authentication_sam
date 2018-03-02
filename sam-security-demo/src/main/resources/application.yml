@@ -45,6 +45,8 @@ security:
 
 sam:
   security:
+    browser:
+      signUpUrl: /demo-signUp.html
     social:
       filterProcessesUrl: /qqLogin
       qq:
