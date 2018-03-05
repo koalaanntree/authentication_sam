@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
@@ -23,7 +25,8 @@ import javax.sql.DataSource;
  * @Author: huangxin
  * @Date: Created in 上午10:07 2018/2/28
  * @Description:
- */@Configuration
+ */
+@Configuration
 public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Autowired
@@ -44,6 +47,13 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private SpringSocialConfigurer samSocialSecurityConfig;
 
+    @Autowired
+    private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
+
+
+    @Autowired
+    private InvalidSessionStrategy invalidSessionStrategy;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -62,10 +72,10 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .userDetailsService(userDetailsService)
                 .and()
                 .sessionManagement()
-                .invalidSessionUrl("/session/invalid")
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(true)
-                .expiredSessionStrategy(new SamExpiredSessionStrategy())
+                .invalidSessionStrategy(invalidSessionStrategy)
+                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
+                .expiredSessionStrategy(sessionInformationExpiredStrategy)
                 .and()
                 .and()
                 .authorizeRequests()
@@ -75,7 +85,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                         securityProperties.getBrowser().getSignUpUrl(),
-                        "/user/regist","/session/invalid")
+                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
+                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
+                        "/user/regist")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

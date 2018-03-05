@@ -11,10 +11,20 @@ import java.io.IOException;
  * @Date: Created in 上午10:53 2018/3/5
  * @Description:
  */
-public class SamExpiredSessionStrategy implements SessionInformationExpiredStrategy {
+public class SamExpiredSessionStrategy extends AbstractSessionStrategy implements SessionInformationExpiredStrategy {
+    public SamExpiredSessionStrategy(String invalidSessionUrl) {
+        super(invalidSessionUrl);
+    }
+
+
     @Override
-    public void onExpiredSessionDetected(SessionInformationExpiredEvent eventØ) throws IOException, ServletException {
-        eventØ.getResponse().setContentType("application/json;charset=UTF-8");
-        eventØ.getResponse().getWriter().write("并发登录！");
+    public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException, ServletException {
+        onSessionInvalid(event.getRequest(), event.getResponse());
+    }
+
+
+    @Override
+    protected boolean isConcurrency() {
+        return true;
     }
 }

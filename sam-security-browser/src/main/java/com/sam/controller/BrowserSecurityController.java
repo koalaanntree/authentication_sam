@@ -84,10 +84,4 @@ public class BrowserSecurityController {
         return userInfo;
     }
 
-    @GetMapping("/session/invalid")
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public SimpleResponse sessionInvalid() {
-        String msg = "session失效";
-        return new SimpleResponse(msg);
-    }
 }

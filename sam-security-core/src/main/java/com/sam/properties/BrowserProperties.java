@@ -7,13 +7,15 @@ package com.sam.properties;
  */
 public class BrowserProperties {
 
+    private SessionProperties session = new SessionProperties();
+
+    private String signUpUrl = "/sam-signUp.html";
+
     private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
 
     private LoginResponseType loginType = LoginResponseType.JSON;
 
     private int rememberMeSeconds = 3600;
-
-    private String signUpUrl = "/sam-signUp.html";
 
     public String getLoginPage() {
         return loginPage;
@@ -45,5 +47,13 @@ public class BrowserProperties {
 
     public void setSignUpUrl(String signUpUrl) {
         this.signUpUrl = signUpUrl;
+    }
+
+    public SessionProperties getSession() {
+        return session;
+    }
+
+    public void setSession(SessionProperties session) {
+        this.session = session;
     }
 }
