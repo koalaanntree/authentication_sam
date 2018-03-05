@@ -62,8 +62,8 @@ public class BrowserSecurityController {
 
         if (savedRequest != null) {
             String targetUrl = savedRequest.getRedirectUrl();
-            logger.info("引发跳转的请求是:"+targetUrl);
-            if(StringUtils.endsWithIgnoreCase(targetUrl, ".html")){
+            logger.info("引发跳转的请求是:" + targetUrl);
+            if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
                 redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
             }
         }
@@ -84,4 +84,10 @@ public class BrowserSecurityController {
         return userInfo;
     }
 
+    @GetMapping("/session/invalid")
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public SimpleResponse sessionInvalid() {
+        String msg = "session失效";
+        return new SimpleResponse(msg);
+    }
 }

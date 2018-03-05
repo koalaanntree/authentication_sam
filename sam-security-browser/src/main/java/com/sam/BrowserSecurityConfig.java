@@ -4,6 +4,7 @@ import com.sam.authentication.AbstractChannelSecurityConfig;
 import com.sam.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.sam.properties.SecurityConstants;
 import com.sam.properties.SecurityProperties;
+import com.sam.session.SamExpiredSessionStrategy;
 import com.sam.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -60,14 +61,21 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(userDetailsService)
                 .and()
+                .sessionManagement()
+                .invalidSessionUrl("/session/invalid")
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+                .expiredSessionStrategy(new SamExpiredSessionStrategy())
+                .and()
+                .and()
                 .authorizeRequests()
                 .antMatchers(
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                         securityProperties.getBrowser().getSignUpUrl(),
-                        "/user/regist")
+                        "/user/regist","/session/invalid")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

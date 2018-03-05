@@ -20,6 +20,9 @@ spring:
 #port
 server:
   port: 9090
+  session:
+  #单位是秒,最小为1分钟
+    timeout: 600
 #spring session
 security:
   basic:
@@ -57,7 +60,5 @@ sam:
         app-id: 100550231
         app-secret: 69b6ab57b22f3c2fe6a6149274e3295e
         providerId: callback.do
-logging:
-  level:
-    com.sam:debug
+
 
