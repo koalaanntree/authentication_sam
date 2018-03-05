@@ -14,9 +14,14 @@
     </parent>
 
     <dependencies>
+        <!--<dependency>-->
+            <!--<groupId>com.sam</groupId>-->
+            <!--<artifactId>sam-security-browser</artifactId>-->
+            <!--<version>${sam.security.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.sam</groupId>
-            <artifactId>sam-security-browser</artifactId>
+            <artifactId>sam-security-app</artifactId>
             <version>${sam.security.version}</version>
         </dependency>
         <dependency>
