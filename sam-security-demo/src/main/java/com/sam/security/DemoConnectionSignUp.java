@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @Date: Created in 下午2:56 2018/3/2
  * @Description:
  */
-@Component
+//@Component
 public class DemoConnectionSignUp implements ConnectionSignUp {
     @Override
     public String execute(Connection<?> connection) {
