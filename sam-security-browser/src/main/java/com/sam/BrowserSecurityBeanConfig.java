@@ -1,5 +1,6 @@
 package com.sam;
 
+import com.sam.logout.SamLogoutSuccessHandler;
 import com.sam.properties.SecurityProperties;
 import com.sam.session.SamExpiredSessionStrategy;
 import com.sam.session.SamInvalidSessionStrategy;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
@@ -30,6 +32,12 @@ public class BrowserSecurityBeanConfig {
     @ConditionalOnMissingBean(SessionInformationExpiredStrategy.class)
     public SessionInformationExpiredStrategy sessionInformationExpiredStrategy() {
         return new SamExpiredSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(LogoutSuccessHandler.class)
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new SamLogoutSuccessHandler(securityProperties.getBrowser().getSignOutUrl());
     }
 
 }

@@ -11,6 +11,8 @@ public class BrowserProperties {
 
     private String signUpUrl = "/sam-signUp.html";
 
+    private String signOutUrl;
+
     private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
 
     private LoginResponseType loginType = LoginResponseType.JSON;
@@ -55,5 +57,13 @@ public class BrowserProperties {
 
     public void setSession(SessionProperties session) {
         this.session = session;
+    }
+
+    public String getSignOutUrl() {
+        return signOutUrl;
+    }
+
+    public void setSignOutUrl(String signOutUrl) {
+        this.signOutUrl = signOutUrl;
     }
 }

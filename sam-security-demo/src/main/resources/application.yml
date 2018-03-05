@@ -7,7 +7,7 @@ spring:
     password: 123456
 #spring session
   session:
-    store-type: none
+    store-type: REDIS
 #    spring redis
   redis:
     host: 127.0.0.1
@@ -50,6 +50,7 @@ security:
 sam:
   security:
     browser:
+      signOutUrl: /demo-logout.html
       signUpUrl: /demo-signUp.html
     social:
       weixin:
@@ -60,5 +61,3 @@ sam:
         app-id: 100550231
         app-secret: 69b6ab57b22f3c2fe6a6149274e3295e
         providerId: callback.do
-
-

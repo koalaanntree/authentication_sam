@@ -1,6 +1,7 @@
 package com.sam.validate.code;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -8,9 +9,10 @@ import java.time.LocalDateTime;
  * @Date: Created in 上午8:54 2018/3/1
  * @Description:
  */
-public class ValidateCode {
+public class ValidateCode implements Serializable{
 
 
+    private static final long serialVersionUID = 7568768194783287548L;
     private String code;
 
     private LocalDateTime expireTime;
