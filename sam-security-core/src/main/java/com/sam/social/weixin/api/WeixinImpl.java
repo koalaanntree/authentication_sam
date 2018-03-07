@@ -1,6 +1,7 @@
 package com.sam.social.weixin.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sam.social.util.EmojiFilter;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -57,6 +58,7 @@ public class WeixinImpl extends AbstractOAuth2ApiBinding implements Weixin {
         WeixinUserInfo profile = null;
         try {
             profile = objectMapper.readValue(response, WeixinUserInfo.class);
+            profile.setNickname(EmojiFilter.filterEmoji(profile.getNickname()));
         } catch (Exception e) {
             e.printStackTrace();
         }

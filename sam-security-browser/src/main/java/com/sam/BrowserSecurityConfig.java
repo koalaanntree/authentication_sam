@@ -95,8 +95,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                         securityProperties.getBrowser().getSignUpUrl(),
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
+//                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
+                        securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
                         securityProperties.getBrowser().getSignOutUrl(),
                         "/user/regist")
                 .permitAll()

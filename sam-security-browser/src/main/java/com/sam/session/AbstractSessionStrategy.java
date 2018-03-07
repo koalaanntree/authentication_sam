@@ -45,6 +45,7 @@ public class AbstractSessionStrategy {
      */
     public AbstractSessionStrategy(String invalidSessionUrl) {
         Assert.isTrue(UrlUtils.isValidRedirectUrl(invalidSessionUrl), "url must start with '/' or with 'http(s)'");
+        Assert.isTrue(StringUtils.endsWithIgnoreCase(invalidSessionUrl, ".html"), "url must end with '.html'");
         this.destinationUrl = invalidSessionUrl;
     }
 
@@ -57,6 +58,8 @@ public class AbstractSessionStrategy {
      */
     protected void onSessionInvalid(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+        logger.info("session失效");
+
         if (createNewSession) {
             request.getSession();
         }
@@ -65,8 +68,8 @@ public class AbstractSessionStrategy {
         String targetUrl;
 
         if (StringUtils.endsWithIgnoreCase(sourceUrl, ".html")) {
-            targetUrl = destinationUrl + ".html";
-            logger.info("session失效,跳转到" + targetUrl);
+            targetUrl = destinationUrl;
+            logger.info("跳转到:"+targetUrl);
             redirectStrategy.sendRedirect(request, response, targetUrl);
         } else {
             Object result = buildResponseContent(request);
@@ -104,10 +107,10 @@ public class AbstractSessionStrategy {
      * redirected request). Alternatively, ensure that the configured URL does
      * not pass through the {@code SessionManagementFilter}.
      *
-     * @param createNewSession defaults to {@code true}.
+     * @param createNewSession
+     *            defaults to {@code true}.
      */
     public void setCreateNewSession(boolean createNewSession) {
         this.createNewSession = createNewSession;
     }
-
 }

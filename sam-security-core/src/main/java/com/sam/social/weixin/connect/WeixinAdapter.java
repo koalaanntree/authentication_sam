@@ -39,7 +39,6 @@ public class WeixinAdapter implements ApiAdapter<Weixin> {
     @Override
     public void setConnectionValues(Weixin api, ConnectionValues values) {
         WeixinUserInfo profile = api.getUserInfo(openId);
-        profile.setNickname(EmojiFilter.filterEmoji(profile.getNickname()));
         values.setProviderUserId(profile.getOpenid());
         values.setDisplayName(profile.getNickname());
         values.setImageUrl(profile.getHeadimgurl());

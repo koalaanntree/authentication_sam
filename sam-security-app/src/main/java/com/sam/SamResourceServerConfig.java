@@ -3,6 +3,7 @@ package com.sam;
 import com.sam.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.sam.properties.SecurityConstants;
 import com.sam.properties.SecurityProperties;
+import com.sam.social.openid.OpenIdAuthenticationSecurityConfig;
 import com.sam.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,9 @@ public class SamResourceServerConfig extends ResourceServerConfigurerAdapter {
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
     @Autowired
+    private OpenIdAuthenticationSecurityConfig openIdAuthenticationSecurityConfig;
+
+    @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
     @Autowired
@@ -54,15 +58,17 @@ public class SamResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .apply(samSocialSecurityConfig)
                 .and()
+                .apply(openIdAuthenticationSecurityConfig)
+                .and()
                 .authorizeRequests()
                 .antMatchers(
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                         securityProperties.getBrowser().getSignUpUrl(),
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
+                        securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
                         securityProperties.getBrowser().getSignOutUrl(),
                         "/user/regist")
                 .permitAll()
