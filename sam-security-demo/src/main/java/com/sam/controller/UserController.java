@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import com.sam.social.AppSingUpUtils;
 
 /**
  * @Author: huangxin
@@ -36,6 +37,9 @@ public class UserController {
 
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
+
+    @Autowired
+	private AppSingUpUtils appSingUpUtils;
 
     /**
      * 拿到服务认证信息对象
@@ -53,8 +57,8 @@ public class UserController {
     public void regist(User user, HttpServletRequest request) {
         //不管是注册用户还是绑定用户，都会拿到一个用户唯一标志
         String userId = user.getUsername();
-        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
-
+//        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+        appSingUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
 
 
     }

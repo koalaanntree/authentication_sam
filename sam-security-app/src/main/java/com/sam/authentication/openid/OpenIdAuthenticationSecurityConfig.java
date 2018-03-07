@@ -1,4 +1,4 @@
-package com.sam.social.openid;
+package com.sam.authentication.openid;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package com.sam;
 import com.sam.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.sam.properties.SecurityConstants;
 import com.sam.properties.SecurityProperties;
-import com.sam.social.openid.OpenIdAuthenticationSecurityConfig;
+import com.sam.authentication.openid.OpenIdAuthenticationSecurityConfig;
 import com.sam.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -70,7 +70,7 @@ public class SamResourceServerConfig extends ResourceServerConfigurerAdapter {
                         securityProperties.getBrowser().getSignUpUrl(),
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
                         securityProperties.getBrowser().getSignOutUrl(),
-                        "/user/regist")
+                        "/user/regist", "/social/signUp")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

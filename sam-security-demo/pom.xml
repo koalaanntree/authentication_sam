@@ -14,16 +14,16 @@
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>com.sam</groupId>
-            <artifactId>sam-security-browser</artifactId>
-            <version>${sam.security.version}</version>
-        </dependency>
         <!--<dependency>-->
             <!--<groupId>com.sam</groupId>-->
-            <!--<artifactId>sam-security-app</artifactId>-->
+            <!--<artifactId>sam-security-browser</artifactId>-->
             <!--<version>${sam.security.version}</version>-->
         <!--</dependency>-->
+        <dependency>
+            <groupId>com.sam</groupId>
+            <artifactId>sam-security-app</artifactId>
+            <version>${sam.security.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

@@ -1,4 +1,4 @@
-package com.sam.social.openid;
+package com.sam.authentication.openid;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
