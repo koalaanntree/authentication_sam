@@ -4,8 +4,12 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.sam.dto.User;
 import com.sam.dto.UserQueryCondition;
 import com.sam.exception.UserNotExistException;
+import com.sam.properties.SecurityProperties;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +26,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import com.sam.social.AppSingUpUtils;
@@ -41,14 +46,27 @@ public class UserController {
     @Autowired
 	private AppSingUpUtils appSingUpUtils;
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
     /**
      * 拿到服务认证信息对象
      *
      * @return
      */
     @GetMapping("/me")
-    public Object getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
+    public Object getCurrentUser(Authentication userDetails,HttpServletRequest request) throws UnsupportedEncodingException {
 
+        String header = request.getHeader("Authorization");
+
+        String token = StringUtils.substringAfter(header, "bearer ");
+
+        Claims claims = Jwts.parser().setSigningKey(securityProperties.getOauth2().getJwtSigningKey().getBytes("UTF-8"))
+                .parseClaimsJws(token).getBody();
+
+        String company = (String) claims.get("company");
+
+        System.out.println("-->"+company);
 
         return userDetails;
     }

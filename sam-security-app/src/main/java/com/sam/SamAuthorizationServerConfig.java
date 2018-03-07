@@ -12,7 +12,13 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: huangxin
@@ -33,13 +39,32 @@ public class SamAuthorizationServerConfig extends AuthorizationServerConfigurerA
     private SecurityProperties securityProperties;
 
     @Autowired
-    private TokenStore redisTokenStore;
+    private TokenStore tokenStore;
+
+    @Autowired(required = false)
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    @Autowired(required = false)
+    private TokenEnhancer jwtTokenEnhancer;
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager)
-                .tokenStore(redisTokenStore)
+                .tokenStore(tokenStore)
                 .userDetailsService(userDetailsService);
+
+        if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
+
+            TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+
+            List<TokenEnhancer> enhancers = new ArrayList<>();
+
+            enhancers.add(jwtTokenEnhancer);
+            enhancers.add(jwtAccessTokenConverter);
+            enhancerChain.setTokenEnhancers(enhancers);
+            endpoints
+                    .tokenEnhancer(enhancerChain).accessTokenConverter(jwtAccessTokenConverter);
+        }
     }
 
     @Override
@@ -50,11 +75,10 @@ public class SamAuthorizationServerConfig extends AuthorizationServerConfigurerA
             for (OAuth2ClientProperties config : securityProperties.getOauth2().getClients()) {
                 builder.withClient(config.getClientId())
                         .secret(config.getClientSecret())
+                        .authorizedGrantTypes("authorization_code", "refresh_token", "password")
                         .accessTokenValiditySeconds(config.getAccessTokenValiditySeconds())
-                        .authorizedGrantTypes("refresh_token", "password")
-                        .scopes("all", "read", "write")
-                        .and()
-                        .withClient("xxxx");
+                        .refreshTokenValiditySeconds(2592000)
+                        .scopes("all", "read", "write");
             }
         }
 
