@@ -27,10 +27,10 @@ server:
 security:
   basic:
     enabled: true
-  oauth2:
-    client:
-      clientId: sam
-      clientSecret: samsecret
+#  oauth2:
+#    client:
+#      clientId: sam
+#      clientSecret: samsecret
 
 #sam:
 #  security:
@@ -53,6 +53,15 @@ security:
 
 sam:
   security:
+    oauth2:
+      clients[0]:
+        clientId: sam
+        clientSecret: samsecret
+        accessTokenValiditySeconds: 3600
+      clients[1]:
+        clientId: test
+        clientSecret: test
+        accessTokenValiditySeconds: 3600
     browser:
       signOutUrl: /demo-logout.html
       signUpUrl: /demo-signUp.html
@@ -65,3 +74,4 @@ sam:
         app-id: 100550231
         app-secret: 69b6ab57b22f3c2fe6a6149274e3295e
         providerId: callback.do
+
