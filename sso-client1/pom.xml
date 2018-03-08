@@ -4,29 +4,28 @@
         <artifactId>sso-demo</artifactId>
         <groupId>com.sam</groupId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../sso-demo/pom.xml</relativePath>
+        <relativePath>../sso-demo</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>sso-client1</artifactId>
-    <packaging>pom</packaging>
 
-    <name>sso-client1</name>
-    <url>http://maven.apache.org</url>
-    <modules>
-        <module>../sso-client2</module>
-    </modules>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
         </dependency>
     </dependencies>
 </project>
