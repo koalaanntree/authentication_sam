@@ -29,7 +29,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import com.sam.social.AppSingUpUtils;
+//import com.sam.social.AppSingUpUtils;
 
 /**
  * @Author: huangxin
@@ -43,8 +43,8 @@ public class UserController {
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
-    @Autowired
-	private AppSingUpUtils appSingUpUtils;
+//    @Autowired
+//	private AppSingUpUtils appSingUpUtils;
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -75,8 +75,8 @@ public class UserController {
     public void regist(User user, HttpServletRequest request) {
         //不管是注册用户还是绑定用户，都会拿到一个用户唯一标志
         String userId = user.getUsername();
-//        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
-        appSingUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
+        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+//        appSingUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
 
 
     }

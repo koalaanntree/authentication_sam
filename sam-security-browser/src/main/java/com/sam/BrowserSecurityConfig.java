@@ -2,6 +2,7 @@ package com.sam;
 
 import com.sam.authentication.AbstractChannelSecurityConfig;
 import com.sam.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.sam.authorize.AuthorizeConfigManager;
 import com.sam.properties.SecurityConstants;
 import com.sam.properties.SecurityProperties;
 import com.sam.session.SamExpiredSessionStrategy;
@@ -9,6 +10,7 @@ import com.sam.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -58,6 +60,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
 
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -88,22 +93,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .deleteCookies("JSESSIONID")
 //                .logoutSuccessUrl("/sam-logout.html")
                 .and()
-                .authorizeRequests()
-                .antMatchers(
-                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                        securityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                        securityProperties.getBrowser().getSignUpUrl(),
-//                        securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-                        securityProperties.getBrowser().getSignOutUrl(),
-                        "/user/regist")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
                 .csrf().disable();
+
+        authorizeConfigManager.config(http.authorizeRequests());
 
     }
 
